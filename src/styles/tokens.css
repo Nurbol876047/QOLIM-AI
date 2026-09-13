@@ -1,0 +1,118 @@
+/*
+ * Дизайн-система QOLIM AI — светлая, открытая, «медицинско-доверительная».
+ * Все цвета интерфейса берутся ТОЛЬКО отсюда (компоненты не хардкодят hex),
+ * поэтому режим высокого контраста — это просто второй набор значений ниже.
+ */
+:root {
+  /* ---- палитра (по ТЗ) ---- */
+  --bg-base: #f6f9f9;
+  --bg-gradient-top: #fbfdfd;
+  --bg-gradient-bottom: #e9f2f1;
+
+  --text-primary: #1f2b2a;
+  --text-secondary: #55605f;
+
+  --accent-primary: #1f8a7a; /* спокойная бирюза — основной акцент, кнопки, активные состояния */
+  --accent-warm: #d9a441; /* тёплое золото — вторичный акцент, прогресс-кольца, выделения */
+  --accent-alert: #d1603d; /* мягкий терракотовый — экстренный модуль */
+
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(31, 138, 122, 0.25);
+  --card-shadow: 0 8px 28px rgba(30, 60, 55, 0.1);
+
+  /* ---- производные оттенки ---- */
+  --accent-primary-strong: #17705f; /* hover/active для бирюзы */
+  --accent-primary-soft: rgba(31, 138, 122, 0.12);
+  --accent-warm-strong: #8a5f12; /* золото как ЦВЕТ ТЕКСТА — сам #d9a441 на светлом не читается */
+  --accent-warm-soft: rgba(217, 164, 65, 0.16);
+  --accent-alert-strong: #a8451f; /* терракота для кнопок с белым текстом (контраст ≥ 4.5) */
+  --accent-alert-soft: rgba(209, 96, 61, 0.12);
+  --on-accent: #ffffff;
+
+  --surface: #ffffff;
+  --surface-muted: #eef4f3;
+  --line: rgba(31, 43, 42, 0.12);
+  --video-bg: #101817;
+
+  /* цвета скелета руки на видео (PixiJS читает их через getComputedStyle) */
+  --overlay-bone: #2fd3ba;
+  --overlay-joint: #ffc857;
+  --overlay-tip: #ffffff;
+
+  /* ---- типографика ---- */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+  --fs-xs: 0.875rem; /* 14 */
+  --fs-sm: 1rem; /* 16 */
+  --fs-md: 1.125rem; /* 18 — базовый размер интерфейса, крупнее обычного */
+  --fs-lg: 1.375rem; /* 22 */
+  --fs-xl: 1.75rem; /* 28 */
+  --fs-2xl: 2.25rem; /* 36 */
+  --fs-3xl: clamp(2.5rem, 5vw, 3.5rem);
+  --lh-tight: 1.15;
+  --lh-body: 1.55;
+
+  /* ---- размеры ---- */
+  --tap-min: 64px; /* минимальная кликабельная/dwell-зона */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 72px;
+  --container: 1120px;
+  --header-h: 88px;
+
+  /* ---- эффекты ---- */
+  --focus-ring: 0 0 0 3px var(--surface), 0 0 0 6px var(--accent-primary);
+  --transition-fast: 160ms ease;
+  --transition-med: 260ms ease;
+  --blur: blur(14px);
+
+  color-scheme: light;
+}
+
+/*
+ * Высокий контраст (переключатель в шапке, класс на <html>).
+ * Белый фон, чёрный текст, тёмные акценты, без полупрозрачности и декоративного 3D.
+ */
+.high-contrast {
+  --bg-base: #ffffff;
+  --bg-gradient-top: #ffffff;
+  --bg-gradient-bottom: #ffffff;
+
+  --text-primary: #000000;
+  --text-secondary: #1a1a1a;
+
+  --accent-primary: #0b5e50;
+  --accent-warm: #7a4e00;
+  --accent-alert: #9a2a0a;
+
+  --card-bg: #ffffff;
+  --card-border: #000000;
+  --card-shadow: none;
+
+  --accent-primary-strong: #063f35;
+  --accent-primary-soft: #e3f1ee;
+  --accent-warm-strong: #5e3b00;
+  --accent-warm-soft: #fff1d6;
+  --accent-alert-strong: #7a1f05;
+  --accent-alert-soft: #ffe4dc;
+
+  --surface: #ffffff;
+  --surface-muted: #f2f2f2;
+  --line: #000000;
+  --video-bg: #000000;
+
+  --overlay-bone: #00ffd5;
+  --overlay-joint: #ffe600;
+  --overlay-tip: #000000;
+
+  --focus-ring: 0 0 0 3px #ffffff, 0 0 0 7px #000000;
+  --blur: none;
+}

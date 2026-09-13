@@ -1,0 +1,31 @@
+{
+  "name": "qolim-ai",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "QOLIM AI — қазақ жестілі тілін (ҚЖТ) мәтін мен дауысқа аударатын веб-жүйе: React + three.js + GSAP + PixiJS + MediaPipe",
+  "scripts": {
+    "dev": "vite",
+    "dev:server": "node --watch server/index.js",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node server/index.js",
+    "audio": "node scripts/generate-audio.js"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@mediapipe/tasks-vision": "^1.0.1",
+    "edge-tts-universal": "^1.4.0",
+    "express": "^5.2.1",
+    "gsap": "^3.15.0",
+    "pixi.js": "^8.20.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.0",
+    "three": "^0.186.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "vite": "^8.3.0"
+  }
+}
