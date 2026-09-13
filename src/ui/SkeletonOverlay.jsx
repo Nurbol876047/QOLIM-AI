@@ -31,6 +31,7 @@ function readPalette(el) {
     bone: get('--overlay-bone', '#1f8a7a'),
     joint: get('--overlay-joint', '#d9a441'),
     tip: get('--overlay-tip', '#ffffff'),
+    trail: get('--overlay-trail', '#35e6ff'),
   }
 }
 
@@ -39,6 +40,8 @@ const SkeletonOverlay = forwardRef(function SkeletonOverlay({ mirrored = true, c
   const appRef = useRef(null)
   const graphicsRef = useRef(null)
   const paletteRef = useRef(null)
+  const trailHistoryRef = useRef([])
+  const TRAIL_LENGTH = 15
   const mirroredRef = useRef(mirrored)
   mirroredRef.current = mirrored
 
@@ -107,8 +110,46 @@ const SkeletonOverlay = forwardRef(function SkeletonOverlay({ mirrored = true, c
         const py = (p) => p.y * h
 
         g.clear()
+        
+        // Trail fading (when hand is lost)
+        const trailHistory = trailHistoryRef.current
+        if (!hands || hands.length === 0) {
+           if (trailHistory.length > 0) {
+             trailHistory.shift()
+             // Redraw fading trail
+             for (let i = 1; i < trailHistory.length; i++) {
+               const alpha = i / trailHistory.length
+               const pt1 = trailHistory[i-1]
+               const pt2 = trailHistory[i]
+               g.moveTo(pt1.x, pt1.y).lineTo(pt2.x, pt2.y)
+               g.stroke({ width: 2 + (alpha * 6), color: palette.trail, alpha: alpha * 0.7, cap: 'round', join: 'round' })
+             }
+           }
+        }
+
         for (const hand of hands ?? []) {
           if (!hand || hand.length < 21) continue
+          
+          // Index fingertip trail (hand[8])
+          const tipP = hand[8]
+          if (tipP) {
+            trailHistory.push({ x: px(tipP), y: py(tipP) })
+            if (trailHistory.length > TRAIL_LENGTH) {
+              trailHistory.shift()
+            }
+          }
+          
+          // Draw trail
+          if (trailHistory.length > 1) {
+            for (let i = 1; i < trailHistory.length; i++) {
+              const alpha = i / trailHistory.length
+              const pt1 = trailHistory[i-1]
+              const pt2 = trailHistory[i]
+              g.moveTo(pt1.x, pt1.y).lineTo(pt2.x, pt2.y)
+              g.stroke({ width: 2 + (alpha * 6), color: palette.trail, alpha: alpha * 0.7, cap: 'round', join: 'round' })
+            }
+          }
+
           // кости
           for (const [a, b] of HAND_CONNECTIONS) {
             g.moveTo(px(hand[a]), py(hand[a])).lineTo(px(hand[b]), py(hand[b]))
@@ -128,6 +169,7 @@ const SkeletonOverlay = forwardRef(function SkeletonOverlay({ mirrored = true, c
       },
       clear() {
         graphicsRef.current?.clear()
+        trailHistoryRef.current = []
       },
     }),
     [],

@@ -1,43 +1,54 @@
 /*
- * Дизайн-система QOLIM AI — светлая, открытая, «медицинско-доверительная».
+ * Дизайн-система QOLIM AI — голографический стиль (sci-fi hologram).
+ * Тёмный фон, светящийся cyan для текста/обводок, magenta для действий и активных состояний.
  * Все цвета интерфейса берутся ТОЛЬКО отсюда (компоненты не хардкодят hex),
  * поэтому режим высокого контраста — это просто второй набор значений ниже.
  */
 :root {
-  /* ---- палитра (по ТЗ) ---- */
-  --bg-base: #f6f9f9;
-  --bg-gradient-top: #fbfdfd;
-  --bg-gradient-bottom: #e9f2f1;
+  /* ---- база голограммы (по ТЗ) ---- */
+  --bg-base: #05080f;
+  --bg-gradient: radial-gradient(circle at 50% 30%, #0a1420, #030509);
+  --text-primary: #c8f4ff;
+  --accent-cyan: #35e6ff;
+  --accent-magenta: #ff3df0;
+  --glow-cyan: 0 0 8px #35e6ff, 0 0 20px rgba(53, 230, 255, 0.4);
+  --card-bg: rgba(10, 25, 35, 0.4);
+  --card-border: 1px solid rgba(53, 230, 255, 0.5);
 
-  --text-primary: #1f2b2a;
-  --text-secondary: #55605f;
+  /* ---- производные ---- */
+  --text-secondary: #8fc3d4; /* приглушённый cyan-серый, контраст на фоне ≈ 9:1 */
+  --glow-magenta: 0 0 8px #ff3df0, 0 0 20px rgba(255, 61, 240, 0.4);
+  --glow-cyan-soft: 0 0 6px rgba(53, 230, 255, 0.35), 0 0 14px rgba(53, 230, 255, 0.18);
+  /* свечение текста: обычный текст — едва заметное, заголовки/акценты — сильнее (читаемость важнее эффекта) */
+  --text-glow: 0 0 3px rgba(53, 230, 255, 0.35);
+  --text-glow-strong: 0 0 6px rgba(53, 230, 255, 0.55), 0 0 18px rgba(53, 230, 255, 0.25);
+  --text-glow-magenta: 0 0 6px rgba(255, 61, 240, 0.6), 0 0 16px rgba(255, 61, 240, 0.3);
 
-  --accent-primary: #1f8a7a; /* спокойная бирюза — основной акцент, кнопки, активные состояния */
-  --accent-warm: #d9a441; /* тёплое золото — вторичный акцент, прогресс-кольца, выделения */
-  --accent-alert: #d1603d; /* мягкий терракотовый — экстренный модуль */
+  --card-border-color: rgba(53, 230, 255, 0.5);
+  --card-shadow: var(--glow-cyan-soft);
 
-  --card-bg: rgba(255, 255, 255, 0.7);
-  --card-border: rgba(31, 138, 122, 0.25);
-  --card-shadow: 0 8px 28px rgba(30, 60, 55, 0.1);
+  /* семантические роли — те же имена, что использовали компоненты */
+  --accent-primary: var(--accent-cyan); /* информационный акцент: обводки, бейджи, иконки, ссылки */
+  --accent-primary-strong: #9cf1ff; /* cyan как цвет текста на тёмном */
+  --accent-primary-soft: rgba(53, 230, 255, 0.1);
+  --accent-warm: var(--accent-magenta); /* действия, активные состояния, прогресс */
+  --accent-warm-strong: #ffb3f8; /* magenta как цвет текста */
+  --accent-warm-soft: rgba(255, 61, 240, 0.12);
+  --accent-alert: #ff6b57; /* ошибки — коралл, чтобы отличался от magenta */
+  --accent-alert-strong: #ffb3a8;
+  --accent-alert-soft: rgba(255, 107, 87, 0.14);
+  --on-accent: #ffe6fc;
 
-  /* ---- производные оттенки ---- */
-  --accent-primary-strong: #17705f; /* hover/active для бирюзы */
-  --accent-primary-soft: rgba(31, 138, 122, 0.12);
-  --accent-warm-strong: #8a5f12; /* золото как ЦВЕТ ТЕКСТА — сам #d9a441 на светлом не читается */
-  --accent-warm-soft: rgba(217, 164, 65, 0.16);
-  --accent-alert-strong: #a8451f; /* терракота для кнопок с белым текстом (контраст ≥ 4.5) */
-  --accent-alert-soft: rgba(209, 96, 61, 0.12);
-  --on-accent: #ffffff;
-
-  --surface: #ffffff;
-  --surface-muted: #eef4f3;
-  --line: rgba(31, 43, 42, 0.12);
-  --video-bg: #101817;
+  --surface: rgba(6, 18, 28, 0.55);
+  --surface-muted: rgba(53, 230, 255, 0.07);
+  --line: rgba(53, 230, 255, 0.25);
+  --video-bg: #02060b;
 
   /* цвета скелета руки на видео (PixiJS читает их через getComputedStyle) */
-  --overlay-bone: #2fd3ba;
-  --overlay-joint: #ffc857;
+  --overlay-bone: #35e6ff;
+  --overlay-joint: #ff3df0;
   --overlay-tip: #ffffff;
+  --overlay-trail: #35e6ff;
 
   /* ---- типографика ---- */
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
@@ -53,10 +64,10 @@
 
   /* ---- размеры ---- */
   --tap-min: 64px; /* минимальная кликабельная/dwell-зона */
-  --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 22px;
-  --radius-xl: 28px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -69,50 +80,58 @@
   --header-h: 88px;
 
   /* ---- эффекты ---- */
-  --focus-ring: 0 0 0 3px var(--surface), 0 0 0 6px var(--accent-primary);
+  --focus-ring: 0 0 0 3px var(--bg-base), 0 0 0 6px var(--accent-magenta), var(--glow-magenta);
   --transition-fast: 160ms ease;
   --transition-med: 260ms ease;
-  --blur: blur(14px);
+  --blur: blur(10px);
 
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 /*
  * Высокий контраст (переключатель в шапке, класс на <html>).
- * Белый фон, чёрный текст, тёмные акценты, без полупрозрачности и декоративного 3D.
+ * Чёрный фон, белый текст, без свечения и полупрозрачности, сплошные светлые обводки.
  */
 .high-contrast {
-  --bg-base: #ffffff;
-  --bg-gradient-top: #ffffff;
-  --bg-gradient-bottom: #ffffff;
+  --bg-base: #000000;
+  --bg-gradient: none;
 
-  --text-primary: #000000;
-  --text-secondary: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #e6e6e6;
 
-  --accent-primary: #0b5e50;
-  --accent-warm: #7a4e00;
-  --accent-alert: #9a2a0a;
+  --accent-cyan: #7ff5ff;
+  --accent-magenta: #ff8df6;
+  --glow-cyan: none;
+  --glow-magenta: none;
+  --glow-cyan-soft: none;
+  --text-glow: none;
+  --text-glow-strong: none;
+  --text-glow-magenta: none;
 
-  --card-bg: #ffffff;
-  --card-border: #000000;
+  --card-bg: #000000;
+  --card-border: 2px solid #ffffff;
+  --card-border-color: #ffffff;
   --card-shadow: none;
 
-  --accent-primary-strong: #063f35;
-  --accent-primary-soft: #e3f1ee;
-  --accent-warm-strong: #5e3b00;
-  --accent-warm-soft: #fff1d6;
-  --accent-alert-strong: #7a1f05;
-  --accent-alert-soft: #ffe4dc;
+  --accent-primary-strong: #bffbff;
+  --accent-primary-soft: #0b2a30;
+  --accent-warm-strong: #ffc9fa;
+  --accent-warm-soft: #33102f;
+  --accent-alert: #ff8a76;
+  --accent-alert-strong: #ffc7bd;
+  --accent-alert-soft: #3a120b;
+  --on-accent: #000000;
 
-  --surface: #ffffff;
-  --surface-muted: #f2f2f2;
-  --line: #000000;
+  --surface: #000000;
+  --surface-muted: #141414;
+  --line: #ffffff;
   --video-bg: #000000;
 
   --overlay-bone: #00ffd5;
   --overlay-joint: #ffe600;
   --overlay-tip: #000000;
+  --overlay-trail: #00ffd5;
 
-  --focus-ring: 0 0 0 3px #ffffff, 0 0 0 7px #000000;
+  --focus-ring: 0 0 0 3px #000000, 0 0 0 7px #ffffff;
   --blur: none;
 }

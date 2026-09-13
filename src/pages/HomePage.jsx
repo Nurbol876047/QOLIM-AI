@@ -1,4 +1,4 @@
-import { MODULES } from '../modules.js'
+import { LIBRARY_PAGE, MODULES } from '../modules.js'
 import ModuleCard from '../components/ModuleCard.jsx'
 import { PRIVACY_TEXT } from '../components/PrivacyNotice.jsx'
 
@@ -28,10 +28,18 @@ export default function HomePage() {
         </p>
       </section>
 
-      <section className="grid-3" aria-label="Модульдер">
+      <section className="grid-2 grid-2--even" aria-label="Модульдер">
         {MODULES.map((m) => (
           <ModuleCard key={m.id} module={m} />
         ))}
+        <ModuleCard
+          module={{
+            ...LIBRARY_PAGE,
+            id: 'library',
+            num: 'Кітапхана',
+            description: 'Өз жестіңізді камераға көрсетіп жазыңыз — стикер, санат және дауыс автоматты түрде дайындалады.',
+          }}
+        />
       </section>
 
       <section className="grid-2">

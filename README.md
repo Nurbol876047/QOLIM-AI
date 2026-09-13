@@ -61,7 +61,7 @@ qolim-ai/
       useSpeech.js           озвучка: mp3 → speechSynthesis
       useHighContrast.js     режим высокого контраста (класс .high-contrast на <html>)
     ui/
-      SceneCanvas.jsx        three.js — фоновые 3D-акценты
+      SceneCanvas.jsx        three.js — голографические стеклянные фигуры (iridescence + RoomEnvironment)
       SkeletonOverlay.jsx    PixiJS — точки/кости руки поверх видео
       Transitions.js         GSAP — переходы страниц, pulse, attention, прогресс
       PageTransition.jsx     обёртка маршрута, играет pageEnter при смене URL
@@ -78,9 +78,9 @@ qolim-ai/
     pages/
       HomePage.jsx           главная: три модуля, принципы
       CoreRecognitionPage.jsx    модуль 1 — жест → текст/дауыс (камера + GestureEngine + озвучка + фраза)
-      EmergencyPhrasesPage.jsx   модуль 2 — экстренные фразы (заготовка)
-      LearningPage.jsx           модуль 3 — үйрену (заготовка)
       LibraryPage.jsx            «Кітапхана» — запись новых жестов и проверка библиотеки
+      (модули 2 «Шұғыл» и 3 «Үйрену» из навигации и страниц убраны; категории в данных остались —
+       GestureEngine.setCategoryFilter('emergency') по-прежнему работает)
     modules.js               реестр модулей: маршруты, названия, категории
     styles/
       tokens.css             цветовая система + режим высокого контраста
@@ -156,6 +156,14 @@ JSON-ответ) возвращает: исправленное казахско
 `hooks/useSpeech.js`: mp3 из `public/audio/{id}.mp3` (Edge TTS, `kk-KZ-AigulNeural`), если файла нет —
 Web Speech API (казахский голос, если есть в системе, иначе русский/любой). Переключатель «Дауыс»
 в модуле 1 запоминается.
+
+## Голографический фон
+
+`.holo-bg` в `global.css` — переливающиеся пастельные пятна (рисуются на слое 40 % и растягиваются
+transform'ом, чтобы blur был дешёвым) + вращающийся «фольговый» блик с диагональными штрихами;
+поверх — `SceneCanvas.jsx`: полупрозрачные фигуры из `MeshPhysicalMaterial` с тонкоплёночной
+интерференцией и окружением `RoomEnvironment`, ~30 к/с, pixelRatio ≤ 1.5. В режиме высокого
+контраста фон выключается, при `prefers-reduced-motion` — статичный кадр.
 
 ## Accessibility
 

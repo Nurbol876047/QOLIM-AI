@@ -30,11 +30,21 @@ export function pageEnter(root) {
   const tl = gsap.timeline({ defaults: { ease: EASE.out } })
   tl.fromTo(root, { autoAlpha: 0 }, { autoAlpha: 1, duration: DURATION.page * 0.6 })
   if (items.length) {
-    tl.fromTo(
+    gsap.set(items, { autoAlpha: 0 })
+    tl.to(
       items,
-      { y: 22, autoAlpha: 0 },
-      { y: 0, autoAlpha: 1, duration: DURATION.page, stagger: DURATION.stagger, clearProps: 'transform,opacity,visibility' },
-      '<',
+      {
+        duration: DURATION.page,
+        stagger: DURATION.stagger,
+        keyframes: [
+          { x: 8, skewX: 10, opacity: 0.3, filter: 'blur(3px)', duration: 0.05 },
+          { x: -8, skewX: -10, opacity: 0.7, filter: 'blur(5px)', duration: 0.05 },
+          { x: 4, skewX: 4, opacity: 0.5, filter: 'blur(2px)', duration: 0.05 },
+          { x: 0, skewX: 0, opacity: 1, filter: 'blur(0px)', duration: DURATION.page - 0.15, ease: 'power2.out' }
+        ],
+        clearProps: 'all'
+      },
+      '<'
     )
   }
   return tl

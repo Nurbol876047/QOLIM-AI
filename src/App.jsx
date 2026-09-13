@@ -11,6 +11,13 @@ function Layout() {
   const [highContrast, toggleContrast] = useHighContrast()
   return (
     <>
+      {/* голографический фон: CSS-переливы + three.js-фигуры поверх */}
+      <div className="holo-bg" aria-hidden="true">
+        <div className="holo-bg__drift">
+          <div className="holo-bg__blobs" />
+        </div>
+        <div className="holo-bg__foil" />
+      </div>
       <SceneCanvas />
       <div className="app-shell">
         <AppHeader highContrast={highContrast} onToggleContrast={toggleContrast} />
