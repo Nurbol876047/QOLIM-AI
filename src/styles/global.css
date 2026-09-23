@@ -708,6 +708,28 @@ canvas {
 .result-card--warm .result-card__value {
   color: var(--accent-warm-strong);
 }
+.result-card--alert {
+  border-color: var(--accent-alert);
+  box-shadow: 0 0 0 1px var(--accent-alert-soft), var(--card-shadow);
+}
+.result-card__sticker {
+  display: block;
+  font-size: 3.5rem;
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+.result-card--alert .result-card__sticker {
+  animation: sticker-pulse 1s ease-in-out infinite;
+}
+@keyframes sticker-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .result-card--alert .result-card__sticker {
+    animation: none;
+  }
+}
 .result-card__value--empty {
   color: var(--text-secondary);
   font-weight: 500;
@@ -822,6 +844,17 @@ canvas {
   font-size: var(--fs-lg);
   font-weight: 700;
   color: var(--accent-primary-strong);
+}
+.live__value--alert {
+  color: var(--accent-alert-strong);
+}
+.live__sticker {
+  font-size: 1.6em;
+  line-height: 1;
+}
+.live--alert {
+  border-color: var(--accent-alert);
+  box-shadow: 0 0 0 1px var(--accent-alert-soft), var(--card-shadow);
 }
 .progress {
   height: 10px;

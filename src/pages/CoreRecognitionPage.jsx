@@ -115,12 +115,12 @@ export default function CoreRecognitionPage() {
           </div>
 
           {cameraRunning && (
-            <div className="card live" data-animate aria-live="polite">
+            <div className={`card live${candidate?.gesture?.category === 'emergency' ? ' live--alert' : ''}`} data-animate aria-live="polite">
               <div className="live__row">
                 <span className="live__label">Көріп тұрмын:</span>
                 {candidate?.gesture ? (
-                  <span className="live__value">
-                    <span aria-hidden="true">{candidate.gesture.icon ?? '📹'}</span> {candidate.gesture.label_kk}
+                  <span className={`live__value${candidate.gesture.category === 'emergency' ? ' live__value--alert' : ''}`}>
+                    <span className="live__sticker" aria-hidden="true">{candidate.gesture.icon ?? '📹'}</span> {candidate.gesture.label_kk}
                     <span className="badge">🎯 {Math.round(candidate.confidence * 100)}%</span>
                   </span>
                 ) : (
@@ -150,7 +150,12 @@ export default function CoreRecognitionPage() {
         </div>
 
         <div className="stack">
-          <div className="card result-card" data-animate ref={resultRef} aria-live="polite">
+          <div
+            className={`card result-card${result?.gesture?.category === 'emergency' ? ' result-card--alert' : ''}`}
+            data-animate
+            ref={resultRef}
+            aria-live="polite"
+          >
             <h2 className="card__title">
               <span className="card__icon" aria-hidden="true">
                 💬
@@ -159,10 +164,12 @@ export default function CoreRecognitionPage() {
             </h2>
             {result ? (
               <>
-                <div className="result-card__value">
-                  {result.gesture?.icon && <span aria-hidden="true">{result.gesture.icon} </span>}
-                  {result.text}
-                </div>
+                {result.gesture?.icon && (
+                  <span className="result-card__sticker" aria-hidden="true">
+                    {result.gesture.icon}
+                  </span>
+                )}
+                <div className="result-card__value">{result.text}</div>
                 <div className="result-card__meta">
                   <span className="badge">
                     <span aria-hidden="true">🎯</span> Сенімділік: {Math.round(result.confidence * 100)}%
