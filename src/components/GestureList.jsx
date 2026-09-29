@@ -1,6 +1,6 @@
 import { CATEGORY_LABELS } from '../core/gestureLibrary.js'
 
-const CATEGORY_BADGE = { core: 'badge--primary', emergency: 'badge--alert', learning: 'badge--warm' }
+const CATEGORY_BADGE = { core: 'badge--primary', emergency: 'badge--alert', learning: 'badge--warm', police: 'badge--primary' }
 
 /**
  * Список жестов библиотеки. scores — Map id → { confidence, progress } для живых «полосок»

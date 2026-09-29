@@ -5,6 +5,8 @@ import PageTransition from './ui/PageTransition.jsx'
 import { useHighContrast } from './hooks/useHighContrast.js'
 import HomePage from './pages/HomePage.jsx'
 import CoreRecognitionPage from './pages/CoreRecognitionPage.jsx'
+import TextToGesturePage from './pages/TextToGesturePage.jsx'
+import GestureGuidePage from './pages/GestureGuidePage.jsx'
 import LibraryPage from './pages/LibraryPage.jsx'
 
 function Layout() {
@@ -45,6 +47,8 @@ export default function App() {
         <Route element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="/core" element={<CoreRecognitionPage />} />
+          <Route path="/text-to-gesture" element={<TextToGesturePage />} />
+          <Route path="/gesture-guide" element={<GestureGuidePage />} />
           <Route path="/library" element={<LibraryPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
